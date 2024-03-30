@@ -14,9 +14,17 @@ warnings.filterwarnings("ignore", message="X does not have valid feature names",
 delhi_data = pd.read_excel(r'C:\Users\nachi\Desktop\petrol_pump_delhi.xlsx')
 
 # Split the data into features (X) and target variables (latitude and longitude)
-X = delhi_data.drop(columns=['Phone_office', 'Zone_name'])
+X = delhi_data.drop(columns=['Name', 'Latitude', 'Longitude'])
 y_lat = delhi_data['Latitude']
 y_long = delhi_data['Longitude']
+
+# Convert any non-numeric columns to numeric (optional)
+X = X.apply(pd.to_numeric, errors='coerce')
+
+# Drop rows with missing values
+X.dropna(inplace=True)
+y_lat = y_lat[X.index]  # Align target variable
+y_long = y_long[X.index]  # Align target variable
 
 # Split the data into training and testing sets for latitude prediction
 X_train_lat, X_test_lat, y_train_lat, y_test_lat = train_test_split(X, y_lat, test_size=0.2, random_state=42)
@@ -44,6 +52,7 @@ end_time_long = time.time()
 print("Training for longitude prediction completed.")
 print("Time taken for training: {:.2f} seconds".format(end_time_long - start_time_long))
 
+#
 # Predict latitude and longitude for the new location along a specified route
 # Modify this section to predict coordinates along the route
 predicted_coordinates = []
