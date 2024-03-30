@@ -14,7 +14,7 @@ warnings.filterwarnings("ignore", message="X does not have valid feature names",
 delhi_data = pd.read_excel(r'C:\Users\nachi\Desktop\petrol_pump_delhi.xlsx')
 
 # Split the data into features (X) and target variables (latitude and longitude)
-X = delhi_data.drop(columns=['Name', 'Latitude', 'Longitude'])
+X = delhi_data.drop(columns=['name', 'Latitude', 'Longitude'])
 y_lat = delhi_data['Latitude']
 y_long = delhi_data['Longitude']
 
